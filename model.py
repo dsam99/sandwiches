@@ -12,7 +12,7 @@ training_examples = img_convert.convert_directory("/home/daniel-ritter/food_101/
 for example in training_examples:
     example = convert_to_tensor(example)
 
-print(training_examples[0])
+
 model = Sequential()
 
 # Adding layers 
