@@ -1,35 +1,139 @@
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Flatten, GlobalAveragePooling2D
 from tensorflow import convert_to_tensor
+from keras.models import load_model
+import numpy as np
+
 import img_convert
 
 
-# Getting input data
+def create_model():
+    '''
+    Method to setup the Keras model
+    '''
 
-training_examples = img_convert.convert_directory("/home/daniel-ritter/food_101/churros")
+    # creating our keras model
+    model = Sequential()
 
-# Turns all training examples from numpy arrays into tensors
-for example in training_examples:
-    example = convert_to_tensor(example)
+    # Adding layers
+    model.add(Conv2D(64,
+                     kernel_size=3,
+                     padding="same",
+                     activation='relu',
+                     input_shape=(512, 384, 1)))
 
-print(training_examples[0])
-model = Sequential()
+    model.add(Conv2D(32, kernel_size=3,
+                     activation='relu'))
 
-# Adding layers 
+    # pooling layer
+    model.add(Flatten())
 
-model.add(Conv2D(64,kernel_size=3,activation='relu',input_shape = (None,None,1)))
-model.add(Conv2D(32,kernel_size=3,activation='relu'))
-model.add(GlobalAveragePooling2D())
-model.add(Dense(7,activation='softmax'))
+    # final dense layer to produce output
+    model.add(Dense(7, activation='softmax'))
+
+    # Compiling model
+    model.compile(optimizer='adam',
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    return model
 
 
-# Compiling model
-model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+def create_data():
+    '''
+    Method to setup training data
+    '''
 
-training_labels = None
-test_examples = None
-test_labels = None
+    train_data = []
+    train_labels = []
+    test_data = []
+    test_labels = []
 
-# Train the model
-model.fit(training_examples,training_labels,validation_data=(test_examples,test_labels),epochs=1)
+    with open('data/labels.csv') as f:
+    	# creating training data
+    	data = f.readlines()
 
+		for i in range(300):
+			image_file = data[i][0]
+			
+			# creating labels
+			label = np.zeros(7) 
+			label[int(data[i][1])] = 1
+			 
+			train_data.append(normalize_image(convert_image(image_file)))
+			train_labels.append(label)
+
+		for i in range(100):
+			image_file = data[i + 300][0]
+			
+			# creating labels
+			label = np.zeros(7) 
+			label[int(data[i + 300][1])] = 1
+			 
+			test_data.append(normalize_image(convert_image(image_file)))
+			test_labels.append(label)
+
+    return train_data, train_labels, test_data, test_labels
+
+def train_model(model):
+    '''
+    Method that loads the datasets and trains the model
+    '''
+
+    # loading in data size (512x384)
+    train_data, train_labels, test_data, test_labels = create_data() 
+
+    # Train the model
+    model.fit(training_examples, 
+    		  training_labels,
+              batch_size=10, 
+              validation_data=(test_examples, test_labels), 
+              epochs=1)
+
+
+def save_model(model):
+    '''
+    Method to save the current state of the keras model and delete the 
+    existing model
+    '''
+
+    model.save('sandwich_model_1.h5')
+    del model
+
+
+def load_model(model_filename):
+    '''
+    Method to load a version of the model
+    '''
+    return load_model(model_filename)
+
+
+def predict_class(model, new_image):
+    '''
+    Method to predict the class of a new image
+    '''
+
+    pred_in = [new_image]
+
+	# make a prediction
+	prediction = model.predict_classes(pred_in)
+	# show the inputs and predicted outputs
+	print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
+
+	return prediction[0]
+
+def main():
+
+    # creating keras model
+    model = create_model()
+
+    # training and saving model
+    train_model(model)
+    save_model(model)
+
+    # loading model
+    # model = load_model("sandwich_model_1.h5")
+
+
+if __name__ == "__main__":
+	main()
