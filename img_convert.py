@@ -16,6 +16,10 @@ def convert_image(jpg):
 	a list representing black and white pixel values
 	'''
 	im = Image.open(jpg)
+
+	# Resizes image to be 512 by 384
+	im = im.resize((512,384))
+
 	bw = im.convert("L")
 
 	return np.array(list(bw.getdata()))
@@ -58,12 +62,13 @@ def resize_image(image):
 def store_data(directory_name):
 	'''
 	Method to serialize and store converted image data
+
+	Params: A pathname to a directory containing other directories which contain images
+
+	Output: Nothing
 	'''
 	with open('image_values.pickle',"wb") as f:
 		for inner_directory_name in os.listdir(directory_name):
 			pickle.dump(convert_directory(directory_name + "/" + inner_directory_name),f)
 			break
-
-
-
 
