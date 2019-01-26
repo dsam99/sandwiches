@@ -30,4 +30,5 @@ with open(save, "a+") as f:
             image.show()
 
         label = input()
-        writer.writerow([join(dir, i), label])
+        if label != "-1":
+            writer.writerow([join(dir, i), label])
