@@ -20,7 +20,7 @@ save = sys.argv[2]
 images = [f for f in listdir(path) if f.endswith(".jpg") or f.endswith(".jpeg") or f.endswith(".JPG") or f.endswith(".JPEG")]
 images = images[0:20]
 
-dir = abspath(path).split("\\")[-1]
+dir = abspath(path).split("\\")[-1].split("/")[-1]
 
 with open(save, "a+") as f:
     writer = csv.writer(f, delimiter=",", quotechar="\"")
