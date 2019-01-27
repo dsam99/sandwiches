@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Dense, Conv2D, Flatten, GlobalAveragePooling2D
+from keras.layers import Dense, Conv2D, Flatten, GlobalAveragePooling2D, Dropout, MaxPooling2D
 from tensorflow import convert_to_tensor
 from keras.models import load_model
 import numpy as np
@@ -22,10 +22,14 @@ def create_model():
                      activation='relu',
                      input_shape=(512, 384, 1)))
 
-    model.add(Dropout(0.5))
+    # adding pooling layer
+    model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(Conv2D(32, kernel_size=3,
                      activation='relu'))
+
+    # adding pooling layer
+    model.add(MaxPooling2D(pool_size=(2, 2)))
 
     # pooling layer
     model.add(Flatten())
@@ -36,7 +40,7 @@ def create_model():
     model.add(Dense(7, activation='softmax'))
 
     # Compiling model
-    model.compile(optimizer='adam',
+    model.compile(optimizer='rmsprop',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
@@ -65,7 +69,6 @@ def create_data():
 
         for i in range(num_files - 2000):
             tuple_data = data[i].strip().split(",")
-            # image_file = "uploads/" + tuple_data[0]
             image_file = tuple_data[0]
 
 	        # creating labels
@@ -76,7 +79,6 @@ def create_data():
         
         for i in range(2000):
             tuple_data = data[i + (num_files - 2000)].strip().split(",")
-            # image_file = "uploads/" + tuple_data[0]
             image_file = tuple_data[0]
 
             # creating labels
