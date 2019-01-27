@@ -11,6 +11,8 @@ from model import (
 )
 import base64
 
+import random
+
 # Create the application instance
 app = Flask(__name__, template_folder="templates")
 
@@ -40,7 +42,7 @@ def classify():
     # process it
     img_filename = "tmp/imageToSave.jpg"
     #cube_type = predict_class(model, img_filename)
-    #cube_type = 1
+    cube_type = random.randint(0, 6)
     # delete the image
     d = {
         'success': True,
