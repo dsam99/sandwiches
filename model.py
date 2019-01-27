@@ -116,11 +116,11 @@ def predict_class(model, image_file):
     pred_in = pred_in.reshape(1, 512, 384, 1)
 
     # make a prediction
-    prediction = model.predict_classes(pred_in)
+    prediction = model.predict(pred_in)
     # show the inputs and predicted outputs
     print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
 
-    pred = prediction[0].tolist()
+    pred = prediction.argmax(axis=-1)
     return pred
 
 def main():
