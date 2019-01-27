@@ -56,7 +56,7 @@ def create_data():
 
         for i in range(num_files - 2000):
             tuple_data = data[i].strip().split(",")
-            image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
+            image_file = "/uploads/" + tuple_data[0]
 
 	        # creating labels
             label = np.zeros(7)
@@ -66,7 +66,7 @@ def create_data():
         
         for i in range(2000):
             tuple_data = data[i + (num_files - 2000)].strip().split(",")
-            image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
+            image_file = "/uploads/" + tuple_data[0]
             # creating labels
             label = np.zeros(7)
             label[int(tuple_data[1])] = 1
