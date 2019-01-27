@@ -34,13 +34,13 @@ def classify():
     b64_string = json['image']
 
     # save the image
-    print(base64.b64encode(b64_string))
+    #print(base64.b64encode(b64_string))
     # print(base64.b64decode())
-    convert_and_save(base64.b64decode(b64_string), "png")
+    convert_and_save(b64_string, "jpg")#base64.b64decode(b64_string), "jpg")
     # process it
     img_filename = "tmp/imageToSave.jpg"
     cube_type = predict_class(model, img_filename)
-    cube_type = 1
+    #cube_type = 1
     # delete the image
     d = {
         'success': True,
