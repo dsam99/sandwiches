@@ -22,11 +22,15 @@ def create_model():
                      activation='relu',
                      input_shape=(512, 384, 1)))
 
+    model.add(Dropout(0.5))
+
     model.add(Conv2D(32, kernel_size=3,
                      activation='relu'))
 
     # pooling layer
     model.add(Flatten())
+
+    model.add(Dropout(0.5))
 
     # final dense layer to produce output
     model.add(Dense(7, activation='softmax'))
