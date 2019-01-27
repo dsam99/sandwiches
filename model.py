@@ -120,7 +120,8 @@ def predict_class(model, image_file):
     # show the inputs and predicted outputs
     print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
 
-    return np.where(prediction[0] == 1)
+    pred = prediction[0].tolist()
+    return pred
 
 def main():
 
@@ -128,10 +129,12 @@ def main():
     model = load_model("sandwich_model_1.h5")
 
     # training and saving model
-    train_model(model)
-    save_model(model)
+    # train_model(model)
+    # save_model(model)
 
     # loading model
+    print(predict_class(model, "/home/daniel-ritter/food_101/churros/125886.jpg"))
+
     
 
 
