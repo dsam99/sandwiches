@@ -65,7 +65,6 @@ def create_data():
         for i in range(220):
             tuple_data = data[i + 300].strip().split(",")
             image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
-            print(tuple_data[1])
             # creating labels
             label = np.zeros(7)
             label[int(tuple_data[1])] = 1
@@ -94,7 +93,7 @@ def train_model(model):
               train_labels,
               batch_size=10,
               validation_data=(test_data, test_labels),
-              epochs=1)
+              epochs=3)
 
 
 def save_model(model):
@@ -132,14 +131,14 @@ def predict_class(model, new_image):
 def main():
 
     # creating keras model
-    model = create_model()
+    model = load_model("sandwich_model_1.h5")
 
     # training and saving model
     train_model(model)
     save_model(model)
 
     # loading model
-    # model = load_model("sandwich_model_1.h5")
+    
 
 
 if __name__ == "__main__":
