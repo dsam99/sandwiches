@@ -55,8 +55,13 @@ def create_data():
 
     with open('data/labels1.csv') as f:
     	# creating training data
-        data = f.readlines()
+        data = np.array(f.readlines())
+
+        # randomly shuffling data
+        np.random.shuffle(data)
+
         num_files = len(data)
+
 
         for i in range(num_files - 2000):
             tuple_data = data[i].strip().split(",")
