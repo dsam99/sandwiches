@@ -34,7 +34,7 @@ def home():
 def classify():
     json = request.get_json(force=True)
     b64_string = json['image']
-
+    
     # save the image
     #print(base64.b64encode(b64_string))
     # print(base64.b64decode())
@@ -47,6 +47,7 @@ def classify():
     d = {
         'success': True,
         'type': cube_type,
+        'base64': b64_string
     }
     return jsonify(d)
 
