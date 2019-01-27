@@ -73,8 +73,8 @@ def create_data():
             test_data.append(normalize_image(convert_image(image_file)))
             test_labels.append(label)
 
-    train_data = train_data.reshape(-1, 512,384, 1)
-    test_data = test_data.reshape(-1, 512,384, 1)
+    train_data = np.array(train_data).reshape(-1, 512,384, 1)
+    test_data = np.array(test_data).reshape(-1, 512,384, 1)
 
     return train_data, train_labels, test_data, test_labels
 
