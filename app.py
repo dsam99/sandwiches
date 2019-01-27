@@ -14,8 +14,8 @@ import base64
 # Create the application instance
 app = Flask(__name__, template_folder="templates")
 
-# MODEL_FILENAME = "sandwich_model_1.h5"
-# model = load_model(MODEL_FILENAME)
+MODEL_FILENAME = "sandwich_model_dropout2.h5"
+model = load_model(MODEL_FILENAME)
 
 # Create a URL route in our application for "/"
 @app.route('/')
@@ -36,10 +36,10 @@ def classify():
     # save the image
     print(base64.b64encode(b64_string))
     # print(base64.b64decode())
-    # convert_and_save(base64.b64decode(b64_string), "png")
+    convert_and_save(base64.b64decode(b64_string), "png")
     # process it
-    # img_filename = "tmp/imageToSave.jpg"
-    # cube_type = predict_class(model, img_filename)
+    img_filename = "tmp/imageToSave.jpg"
+    cube_type = predict_class(model, img_filename)
     cube_type = 1
     # delete the image
     d = {
