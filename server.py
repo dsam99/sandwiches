@@ -3,6 +3,9 @@ from flask import (
     jsonify,
     render_template
 )
+from flask import request
+from base64_to_img import convert_and_save
+import base64
 
 # Create the application instance
 app = Flask(__name__, template_folder="templates")
@@ -18,10 +21,17 @@ def home():
     """
     return render_template('home.html')
 
-@app.route('/summary')
-def summary():
+@app.route('/classify', methods=['POST'])
+def classify():
+    b64_string = request.args.get('image')
+
+    # save the image
+    convert_and_save(base64.b64decode(b64_string), "jpeg")
+    # process it
+    # delete the image
     d = {
-        'hey': 3
+        'success': True,
+        'type': 1,
     }
     return jsonify(d)
 

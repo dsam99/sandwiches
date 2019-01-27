@@ -23,4 +23,4 @@ htmlcov/
 *,cover
 
 *.py~
-*.py.un~
+*.un~
