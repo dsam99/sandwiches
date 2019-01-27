@@ -101,6 +101,7 @@ def train_model(model):
     model.fit(train_data,
               train_labels,
               batch_size=10,
+              shuffle=True,
               validation_data=(test_data, test_labels),
               epochs=3)
 
