@@ -49,7 +49,7 @@ def create_data():
     test_data = []
     test_labels = []
 
-    with open('data/all_labels.csv') as f:
+    with open('data/labels1.csv') as f:
     	# creating training data
         data = f.readlines()
         num_files = len(data)
