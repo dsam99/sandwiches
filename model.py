@@ -104,7 +104,7 @@ def save_model(model):
     existing model
     '''
 
-    model.save('sandwich_model_1.h5')
+    model.save('sandwich_model_dropout2.h5')
     del model
 
 def predict_class(model, image_file):
@@ -128,14 +128,14 @@ def predict_class(model, image_file):
 def main():
 
     # creating keras model
-    model = load_model("sandwich_model_1.h5")
+    model = create_model()
 
     # training and saving model
-    # train_model(model)
-    # save_model(model)
+    train_model(model)
+    save_model(model)
 
     # loading model
-    print(predict_class(model, "/home/daniel-ritter/food_101/churros/125886.jpg"))
+    # print(predict_class(model, "/home/daniel-ritter/food_101/churros/125886.jpg"))
 
     
 
