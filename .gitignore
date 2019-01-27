@@ -29,4 +29,3 @@ htmlcov/
 tmp/*
 
 sandwich_model_1.h5
-sandwich_model_dropout.h5
