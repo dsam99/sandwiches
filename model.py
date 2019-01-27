@@ -105,14 +105,6 @@ def save_model(model):
     model.save('sandwich_model_1.h5')
     del model
 
-
-def load_in_model(model_filename):
-    '''
-    Method to load a version of the model
-    '''
-    return load_model(model_filename)
-
-
 def predict_class(model, image_file):
     '''
     Method to predict the class of a new image
@@ -128,8 +120,7 @@ def predict_class(model, image_file):
     # show the inputs and predicted outputs
     print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
 
-    return prediction[0]
-
+    return prediction[0].index(1)
 
 def main():
 
