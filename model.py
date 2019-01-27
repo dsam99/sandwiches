@@ -51,16 +51,13 @@ def create_data():
 
     with open('data/labels.csv') as f:
     	# creating training data
-    	data = f.readlines()
-        
+        data = f.readlines()  
         for i in range(300):
             tuple_data = data[i].strip().split(",")
-
             image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
 
 	        # creating labels
             label = np.zeros(7)
-            print(tuple_data[1])
             label[int(tuple_data[1])] = 1
             train_data.append(normalize_image(convert_image(image_file)))
             train_labels.append(label)
@@ -105,7 +102,7 @@ def save_model(model):
     del model
 
 
-def load_model(model_filename):
+def load_in_model(model_filename):
     '''
     Method to load a version of the model
     '''
