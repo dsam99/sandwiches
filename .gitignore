@@ -25,5 +25,3 @@ htmlcov/
 
 *.py~
 *.py.un~
-
-tmp/*
