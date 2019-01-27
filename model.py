@@ -119,7 +119,9 @@ def predict_class(model, image_file):
     '''
 
     new_image = normalize_image(convert_image(image_file))
-    pred_in = [new_image]
+    pred_in = np.array([new_image])
+
+    pred_in = pred_in.reshape(1, 512, 384, 1)
 
     # make a prediction
     prediction = model.predict_classes(pred_in)
