@@ -51,8 +51,10 @@ def create_data():
 
     with open('data/labels.csv') as f:
     	# creating training data
-        data = f.readlines()  
-        for i in range(600):
+        data = f.readlines()
+        num_files = len(data)
+
+        for i in range(num_files - 300):
             tuple_data = data[i].strip().split(",")
             image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
 
@@ -62,8 +64,8 @@ def create_data():
             train_data.append(normalize_image(convert_image(image_file)))
             train_labels.append(label)
         
-        for i in range(220):
-            tuple_data = data[i + 300].strip().split(",")
+        for i in range(300):
+            tuple_data = data[i + (num_files - 300)].strip().split(",")
             image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
             # creating labels
             label = np.zeros(7)
