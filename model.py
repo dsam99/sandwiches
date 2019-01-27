@@ -113,16 +113,17 @@ def load_in_model(model_filename):
     return load_model(model_filename)
 
 
-def predict_class(model, new_image):
+def predict_class(model, image_file):
     '''
     Method to predict the class of a new image
     '''
 
+    new_image = normalize_image(convert_image(image_file))
     pred_in = [new_image]
 
-# make a prediction
+    # make a prediction
     prediction = model.predict_classes(pred_in)
-# show the inputs and predicted outputs
+    # show the inputs and predicted outputs
     print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
 
     return prediction[0]
