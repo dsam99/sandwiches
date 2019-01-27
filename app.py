@@ -23,7 +23,8 @@ def home():
 
 @app.route('/classify', methods=['POST'])
 def classify():
-    b64_string = request.args.get('image')
+    json = request.get_json(force=True)
+    b64_string = json['image']
 
     # save the image
     convert_and_save(base64.b64decode(b64_string), "jpeg")
