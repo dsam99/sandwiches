@@ -4,7 +4,7 @@ from tensorflow import convert_to_tensor
 from keras.models import load_model
 import numpy as np
 
-import img_convert
+from img_convert import *
 
 
 def create_model():
@@ -52,28 +52,32 @@ def create_data():
     with open('data/labels.csv') as f:
     	# creating training data
     	data = f.readlines()
+        
+        for i in range(300):
+            tuple_data = data[i].strip().split(",")
 
-		for i in range(300):
-			image_file = data[i][0]
-			
-			# creating labels
-			label = np.zeros(7) 
-			label[int(data[i][1])] = 1
-			 
-			train_data.append(normalize_image(convert_image(image_file)))
-			train_labels.append(label)
+            image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
 
-		for i in range(100):
-			image_file = data[i + 300][0]
-			
-			# creating labels
-			label = np.zeros(7) 
-			label[int(data[i + 300][1])] = 1
-			 
-			test_data.append(normalize_image(convert_image(image_file)))
-			test_labels.append(label)
+	        # creating labels
+            label = np.zeros(7)
+            print(tuple_data[1])
+            label[int(tuple_data[1])] = 1
+            train_data.append(normalize_image(convert_image(image_file)))
+            train_labels.append(label)
+        
+        for i in range(100):
+            tuple_data = data[i + 300].strip().split(",")
+            image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
+            print(tuple_data[1])
+            # creating labels
+            label = np.zeros(7)
+            label[int(tuple_data[1])] = 1
+
+            test_data.append(normalize_image(convert_image(image_file)))
+            test_labels.append(label)
 
     return train_data, train_labels, test_data, test_labels
+
 
 def train_model(model):
     '''
@@ -81,13 +85,13 @@ def train_model(model):
     '''
 
     # loading in data size (512x384)
-    train_data, train_labels, test_data, test_labels = create_data() 
-
+    train_data, train_labels, test_data, test_labels = create_data()
+    print("Loaded data")
     # Train the model
-    model.fit(training_examples, 
-    		  training_labels,
-              batch_size=10, 
-              validation_data=(test_examples, test_labels), 
+    model.fit(train_data,
+              train_labels,
+              batch_size=10,
+              validation_data=(test_data, test_labels),
               epochs=1)
 
 
@@ -115,12 +119,13 @@ def predict_class(model, new_image):
 
     pred_in = [new_image]
 
-	# make a prediction
-	prediction = model.predict_classes(pred_in)
-	# show the inputs and predicted outputs
-	print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
+# make a prediction
+    prediction = model.predict_classes(pred_in)
+# show the inputs and predicted outputs
+    print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
 
-	return prediction[0]
+    return prediction[0]
+
 
 def main():
 
