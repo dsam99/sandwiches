@@ -52,7 +52,7 @@ def create_data():
     with open('data/labels.csv') as f:
     	# creating training data
         data = f.readlines()  
-        for i in range(300):
+        for i in range(600):
             tuple_data = data[i].strip().split(",")
             image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
 
@@ -62,7 +62,7 @@ def create_data():
             train_data.append(normalize_image(convert_image(image_file)))
             train_labels.append(label)
         
-        for i in range(100):
+        for i in range(220):
             tuple_data = data[i + 300].strip().split(",")
             image_file = "/home/daniel-ritter/food_101/" + tuple_data[0]
             print(tuple_data[1])

@@ -25,3 +25,7 @@ htmlcov/
 
 *.py~
 *.py.un~
+
+tmp/*
+
+sandwich_model_1.h5
