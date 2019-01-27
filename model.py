@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Dense, Conv2D, Flatten, GlobalAveragePooling2D, Dropout
+from keras.layers import Dense, Conv2D, Flatten, GlobalAveragePooling2D, Dropout, MaxPooling2D
 from tensorflow import convert_to_tensor
 from keras.models import load_model
 import numpy as np
