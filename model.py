@@ -120,7 +120,7 @@ def predict_class(model, image_file):
     # show the inputs and predicted outputs
     print("X=%s, Predicted=%s" % (pred_in[0], prediction[0]))
 
-    return prediction[0].index(1)
+    return np.where(prediction[0] == 1)
 
 def main():
 
