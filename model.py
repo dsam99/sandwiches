@@ -75,6 +75,8 @@ def create_data():
 
     train_data = np.array(train_data).reshape(-1, 512,384, 1)
     test_data = np.array(test_data).reshape(-1, 512,384, 1)
+    train_labels = np.array(train_labels)
+    test_labels = np.array(test_labels)
 
     return train_data, train_labels, test_data, test_labels
 
